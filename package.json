@@ -21,7 +21,6 @@
         "main":"backbone-associations.js",
         "include":[
             "backbone-associations.js",
-            "backbone-associations-min.js",
             "README.md",
             "CHANGELOG.md"
         ]

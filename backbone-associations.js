@@ -365,7 +365,7 @@
                     //Distinguish between the value of undefined versus a set no-op
                     if (attributes.hasOwnProperty(relationKey))
                         this._setupParents(attributes[relationKey], this.attributes[relationKey]);
-                }, this);
+                }.bind(this));
             }
             // Return results for `BackboneModel.set`.
             return  ModelProto.set.call(this, attributes, options);
@@ -515,7 +515,7 @@
                 _.each(this.relations, function (relation) {
                     var val = this.attributes[relation.key];
                     val && val._processPendingEvents && val._processPendingEvents();
-                }, this);
+                }.bind(this));
 
                 delete this._processedEvents;
             }
@@ -640,7 +640,7 @@
                             json[remoteKey || key] = _.isArray(aJson) ? _.compact(aJson) : aJson;
                         }
 
-                    }, this);
+                    }.bind(this));
                 }
 
                 delete this.visited;
@@ -665,8 +665,8 @@
                     val._proxyCallback && val.off("all", val._proxyCallback, this);
                     val.parents = _.difference(val.parents, [this]);
                 }
-            }, this);
-            
+            }.bind(this));
+
             (!options.listen) && this.off();
         },
 
@@ -773,12 +773,12 @@
             //Iterate over relations
             relation = _.find(parent.relations, function (rel) {
                 return parent.get(rel.key) === target;
-            }, this);
+            }.bind(this));
             if (relation) {
                 surrogate = parent;//surrogate for transformation
                 return true;//break;
             }
-        }, this);
+        }.bind(this));
 
         //If we found a relation and it has a mapping function
         if (relation && relation.map) {
